@@ -1,2 +1,4 @@
 server:
-  port: ${PORT:8001}   
+  port: ${PORT:8001}
+userpassword: "$2a$10$bsHXJQ/mWnal4x6Tffvyte3FaqGblCR7s/7gL/Y7gjTCQwmrKiF0q"
+testpassword: "$2a$10$bsHXJQ/mWnal4x6Tffvyte3FaqGblCR7s/7gL/Y7gjTCQwmrKiF0q"
