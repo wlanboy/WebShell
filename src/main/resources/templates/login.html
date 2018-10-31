@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="default">
+<head>
+<title>Web Shell Client</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container" layout:fragment="header">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Web Shell</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/"></a></li>
+				</ul>			
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template" layout:fragment="content">
+	
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th scope="col">Input</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td>
+						<form action="#" th:action="@{/login}" method="post">
+				            <div><label> User Name : <input type="text" name="username"/> </label></div>
+				            <div><label> Password: <input type="password" name="password"/> </label></div>
+				            <div><input type="submit" value="Sign In"/></div>
+					    </form>
+				  </td>
+			    </tr>
+			  </tbody>
+			</table>		
+			
+		</div>
+		<!-- starter-template -->	
+
+		<div th:if="${error != null}" class="alert alert-danger">
+		  <strong>Error: </strong> <span th:text="${param.error}" th:remove="tag"></span>
+		</div>
+		
+		<div th:if="${error != null}" class="alert alert-danger">
+		  <strong>Error: </strong> <span th:text="${error}" th:remove="tag"></span>
+		</div>
+		
+	</div>
+	<!-- /.container -->
+
+	<script type="text/javascript"
+		src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
+

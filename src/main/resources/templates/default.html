@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Web Shell</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container" layout:fragment="header">
+		</div>
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template" layout:fragment="content">
+	
+		</div>	
+				
+		<div th:if="${error != null}" class="alert alert-danger">
+		  <strong>Error: </strong> <span th:text="${error}" th:remove="tag"></span>
+		</div>		
+	</div>
+	<!-- /.container -->
+
+	<script type="text/javascript"
+		src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
+
