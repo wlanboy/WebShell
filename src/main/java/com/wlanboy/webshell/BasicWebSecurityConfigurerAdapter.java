@@ -18,7 +18,7 @@ public class BasicWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdap
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/test", "/webjars").permitAll()
+                .antMatchers("/test", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
