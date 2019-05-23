@@ -22,6 +22,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<dockerfile.version>1.4.10</dockerfile.version>
+        <docker.image.prefix>wlanboy</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -81,14 +84,51 @@
                     </embeddedLaunchScriptProperties>
                     <executable>true</executable>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>  				
+				<executions>
+				<execution>
+					<goals>
+					<goal>build-info</goal>
+					</goals>
+					<configuration>
+					<additionalProperties>
+						<encoding.source>UTF-8</encoding.source>
+						<encoding.reporting>UTF-8</encoding.reporting>
+						<java.source>${maven.compiler.source}</java.source>
+						<java.target>${maven.compiler.target}</java.target>
+					</additionalProperties>
+					</configuration>
+				</execution>
+				</executions>			
 			</plugin>
+
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${dockerfile.version}</version>
+				<!-- Wire up to the default build phases -->
+				<executions>
+				<execution>
+					<id>default</id>
+					<goals>
+					<goal>build</goal>
+					</goals>
+				</execution>
+				</executions>
+				<configuration>
+				<repository>${docker.image.prefix}/${project.artifactId}</repository>
+				<buildArgs>
+					<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+				</buildArgs>
+				</configuration>
+				<dependencies>
+				<!-- fix for JDK 9+ -->
+				<dependency>
+					<groupId>javax.activation</groupId>
+					<artifactId>javax.activation-api</artifactId>
+					<version>1.2.0</version>
+				</dependency>
+				</dependencies>
+			</plugin>			
 		</plugins>
 	</build>
 
