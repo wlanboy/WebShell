@@ -14,17 +14,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.9.RELEASE</version>
+		<version>2.3.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
-		<dockerfile.version>1.4.10</dockerfile.version>
-        <docker.image.prefix>wlanboy</docker.image.prefix>
+		<java.version>11</java.version>
+		<webjars-locator.version>0.40</webjars-locator.version>
+		<bootstrap.version>4.0.0</bootstrap.version>
 	</properties>
 
 	<dependencies>
@@ -48,19 +47,14 @@
 	    <dependency>
 	        <groupId>org.webjars</groupId>
 	        <artifactId>webjars-locator</artifactId>
-	        <version>0.34</version>
+	        <version>${webjars-locator.version}</version>
 	    </dependency>        
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>bootstrap</artifactId>
-		    <version>4.0.0</version>
+		    <version>${bootstrap.version}</version>
 		</dependency>		
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -100,35 +94,6 @@
 				</execution>
 				</executions>			
 			</plugin>
-
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>${dockerfile.version}</version>
-				<!-- Wire up to the default build phases -->
-				<executions>
-				<execution>
-					<id>default</id>
-					<goals>
-					<goal>build</goal>
-					</goals>
-				</execution>
-				</executions>
-				<configuration>
-				<repository>${docker.image.prefix}/${project.artifactId}</repository>
-				<buildArgs>
-					<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-				</buildArgs>
-				</configuration>
-				<dependencies>
-				<!-- fix for JDK 9+ -->
-				<dependency>
-					<groupId>javax.activation</groupId>
-					<artifactId>javax.activation-api</artifactId>
-					<version>1.2.0</version>
-				</dependency>
-				</dependencies>
-			</plugin>			
 		</plugins>
 	</build>
 
