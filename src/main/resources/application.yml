@@ -1,3 +1,8 @@
+spring:
+  application:
+    name: webshell
+  main:
+    banner-mode: "off"
 server:
   port: ${PORT:8001}
 userpassword: "$2a$10$KcUT1Kd8sIyrDhMP1Art7eEQ1O/CGIkfqwuAnefbDU0t54JEvsmte"
