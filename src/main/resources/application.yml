@@ -1,4 +1,4 @@
 server:
   port: ${PORT:8001}
-userpassword: "$2a$10$bsHXJQ/mWnal4x6Tffvyte3FaqGblCR7s/7gL/Y7gjTCQwmrKiF0q"
-testpassword: "$2a$10$bsHXJQ/mWnal4x6Tffvyte3FaqGblCR7s/7gL/Y7gjTCQwmrKiF0q"
+userpassword: "$2a$10$KcUT1Kd8sIyrDhMP1Art7eEQ1O/CGIkfqwuAnefbDU0t54JEvsmte"
+testpassword: "$2a$10$KcUT1Kd8sIyrDhMP1Art7eEQ1O/CGIkfqwuAnefbDU0t54JEvsmte"
