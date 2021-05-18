@@ -1,7 +1,7 @@
 ![Java CI with Maven](https://github.com/wlanboy/WebShell/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 # WebShell
-Spring Boot Web Shell
+Spring Boot based webfrontend for local shell access
 
 ## Dependencies
 At least: Java 11 and Maven 3.5
