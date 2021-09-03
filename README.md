@@ -6,6 +6,10 @@ Spring Boot based webfrontend for local shell access
 ## Dependencies
 At least: Java 11 and Maven 3.5
 
+## Change passwords for users "user" and "test"
+- https://github.com/wlanboy/WebShell/blob/main/src/main/resources/application.yml
+- use a BCryptPasswordEncoder to generate your own password hashes
+
 ## Build Service Config
 - mvn package -DskipTests=true
 
