@@ -5,5 +5,5 @@ spring:
     banner-mode: "off"
 server:
   port: ${PORT:8001}
-userpassword: "$2a$10$KcUT1Kd8sIyrDhMP1Art7eEQ1O/CGIkfqwuAnefbDU0t54JEvsmte"
-testpassword: "$2a$10$KcUT1Kd8sIyrDhMP1Art7eEQ1O/CGIkfqwuAnefbDU0t54JEvsmte"
+userpassword: "$2a$10$eLayH4SHTEcLCiO9BqSDKuMEk5l/5XuiwhnZgT.nLZnh1wvU8WeLy"
+testpassword: "$2a$10$hlX5LEGwoiNSP9l09oO9tOwt1dVlnTwHhA4aeuEpeATzQ1LV3Mo0G"
