@@ -23,7 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<webjars-locator.version>0.41</webjars-locator.version>
+		<webjars-locator.version>0.43</webjars-locator.version>
 		<bootstrap.version>4.6.0-1</bootstrap.version>
 	</properties>
 
