@@ -15,7 +15,7 @@
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.13</version>
+		<version>2.6.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -23,8 +23,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<webjars-locator.version>0.43</webjars-locator.version>
-		<bootstrap.version>4.6.0-1</bootstrap.version>
+		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
+		<webjars-locator.version>0.45</webjars-locator.version>
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+		<bootstrap.version>4.6.1</bootstrap.version>
 	</properties>
 
 	<dependencies>
