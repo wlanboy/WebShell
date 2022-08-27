@@ -22,7 +22,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
 		<webjars-locator.version>0.45</webjars-locator.version>
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
