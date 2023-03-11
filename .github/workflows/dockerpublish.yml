@@ -21,6 +21,6 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: docker build -t wlanboy/webshell:latest . --build-arg JAR_FILE=./target/webshell-0.0.2-SNAPSHOT.jar
+      run: docker build -t wlanboy/webshell:latest . --build-arg JAR_FILE=./target/webshell-0.1.2-SNAPSHOT.jar
     - name: Docker Push
       run: docker push wlanboy/webshell:latest
