@@ -15,18 +15,18 @@
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.6</version>
+		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
-		<webjars-locator.version>0.46</webjars-locator.version>
+		<webjars-locator.version>0.50</webjars-locator.version>
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-		<bootstrap.version>4.6.2</bootstrap.version>
+		<bootstrap.version>5.3.2</bootstrap.version>
 	</properties>
 
 	<dependencies>
@@ -95,8 +95,6 @@
 					<additionalProperties>
 						<encoding.source>UTF-8</encoding.source>
 						<encoding.reporting>UTF-8</encoding.reporting>
-						<java.source>${maven.compiler.source}</java.source>
-						<java.target>${maven.compiler.target}</java.target>
 					</additionalProperties>
 					</configuration>
 				</execution>
