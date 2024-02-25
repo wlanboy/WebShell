@@ -20,7 +20,7 @@ public class ShellService {
 		if (runtime == null) {
 			runtime = Runtime.getRuntime();
 		}
-		p = runtime.exec(command);
+		p = runtime.exec(new String[]{command});
 		p.waitFor();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
