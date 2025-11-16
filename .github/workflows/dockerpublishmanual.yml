@@ -1,8 +1,7 @@
 name: Docker build and publish image manual
 on: 
-  push:
-    tags: 
-      - '*'
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
