@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: webshell-vs
+spec:
+  hosts:
+    - {{ .Values.istio.host }}
+  exportTo:
+  - "."
+  - istio-ingress
+  - istio-system
+  gateways:
+    - {{ .Values.istio.gatewayName }}
+    - mesh
+  http:
+    - route:
+        - destination:
+            host: {{ .Values.service.name }}
+            port:
+              number: {{ .Values.service.port }}

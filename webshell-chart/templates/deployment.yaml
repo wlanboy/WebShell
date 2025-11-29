@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webshell
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: webshell
+  template:
+    metadata:
+      labels:
+        app: webshell
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: webshell
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: {{ .Values.volume.mountPath }}
+      volumes:
+        - name: tmp-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}

@@ -1,0 +1,39 @@
+image:
+  repository: wlanboy/webshell
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  name: webshell-svc
+  type: ClusterIP
+  port: 8080
+  targetPort: 8001
+
+pvc:
+  enabled: true
+  name: webshell-tmp-pvc
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  size: "100Mi"
+
+volume:
+  mountPath: /tmp
+
+istio:
+  gatewayName: webshell-gw
+  gatewayNamespace: "istio-ingress"
+  host: webshell.tp.lan
+  tls:
+    enabled: true
+    secretName: webshell-tls
+
+certManager:
+  enabled: true
+  issuerRef:
+    kind: ClusterIssuer
+    name: "local-ca-issuer"
+  dnsNames:
+    - webshell.tp.lan

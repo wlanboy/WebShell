@@ -1,0 +1,18 @@
+{{- if .Values.certManager.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.istio.tls.secretName }}
+  namespace: {{ .Values.istio.gatewayNamespace}}
+spec:
+  secretName: {{ .Values.istio.tls.secretName }}
+  issuerRef:
+    name: {{ .Values.certManager.issuerRef.name }}
+    kind: {{ .Values.certManager.issuerRef.kind }}
+  dnsNames:
+{{- range .Values.certManager.dnsNames }}
+    - {{ . }}
+{{- end }}
+  privateKey:
+    rotationPolicy: Always
+{{- end }}
