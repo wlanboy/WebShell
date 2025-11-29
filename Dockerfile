@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:21-jre-noble
 VOLUME /tmp
 ARG JAR_FILE
 ADD ${JAR_FILE} app.jar
