@@ -23,7 +23,7 @@ At least: Java 11 and Maven 3.5
 https://hub.docker.com/r/wlanboy/webshell
 
 ## Docker build
-- docker build -t serviceconfig:latest . --build-arg JAR_FILE=./target/webshell-0.1.2-SNAPSHOT.jar
+- docker build -t webshell:latest . --build-arg JAR_FILE=./target/webshell-0.1.2-SNAPSHOT.jar
 
 ## Docker run
 - docker run --name webshell -d -p 8080:8001 -v /tmp:/tmp wlanboy/webshell:latest
