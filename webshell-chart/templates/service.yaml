@@ -5,7 +5,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   selector:
-    app: webshell
+    app: {{ .Values.deploymentName }}
   ports:
     - name: http
       port: {{ .Values.service.port }}

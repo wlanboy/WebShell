@@ -4,6 +4,7 @@ image:
   pullPolicy: IfNotPresent
 
 replicaCount: 1
+deploymentName: webshell
 
 service:
   name: webshell-svc

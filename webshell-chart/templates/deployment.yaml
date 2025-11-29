@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webshell
+  name: {{ .Values.deploymentName }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: webshell
+      app: {{ .Values.deploymentName }}
   template:
     metadata:
       labels:
-        app: webshell
+        app: {{ .Values.deploymentName }}
         sidecar.istio.io/inject: "true"
     spec:
       containers:
-        - name: webshell
+        - name: {{ .Values.deploymentName }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

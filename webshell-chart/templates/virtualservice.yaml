@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: webshell-vs
+  name: {{ .Values.deploymentName }}-vs
 spec:
   hosts:
     - {{ .Values.istio.host }}
