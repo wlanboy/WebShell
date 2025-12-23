@@ -4,7 +4,9 @@ metadata:
   name: {{ .Values.deploymentName }}-vs
 spec:
   hosts:
-    - {{ .Values.istio.host }}
+  {{- range .Values.istio.hosts }}
+    - {{ . }}
+  {{- end }}
   exportTo:
   - "."
   - istio-ingress

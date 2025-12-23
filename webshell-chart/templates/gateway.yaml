@@ -12,7 +12,7 @@ spec:
         name: https
         protocol: HTTPS
       hosts:
-      {{- range .Values.hosts }}
+      {{- range .Values.istio.hosts }}
         - {{ . }}
       {{- end }}
       tls:
