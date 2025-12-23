@@ -26,7 +26,9 @@ volume:
 istio:
   gatewayName: webshell-gw
   gatewayNamespace: "istio-ingress"
-  host: webshell.tp.lan
+  hosts: 
+    - webshell.tp.lan
+    - webshell.gmk.lan
   tls:
     enabled: true
     secretName: webshell-tls
@@ -38,3 +40,4 @@ certManager:
     name: "local-ca-issuer"
   dnsNames:
     - webshell.tp.lan
+    - webshell.gmk.lan
