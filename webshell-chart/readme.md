@@ -1,3 +1,6 @@
+## Helm install
+This helm script installs the WebShell within a kubernetes cluster.
+
 ```bash
 helm install webshell . -n shells --create-namespace
 ```
