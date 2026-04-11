@@ -3,10 +3,10 @@ package com.wlanboy.webshell.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wlanboy.webshell.service.ShellService;
@@ -18,45 +18,15 @@ public class IndexController {
 
 	@Autowired
 	ShellService service;
-	
-	@RequestMapping("/")
-	public String index(Model model) {
 
-		String error = null;
-		String shell = "/bin/bash";
-		String command = "ls";
-		String output = "";
-
-		model.addAttribute("shell", shell);
-		model.addAttribute("command", command);
-		model.addAttribute("output", output);
-		model.addAttribute("error", error);
-		return "index";
-	}
-	
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
-
-	@PostMapping("/")
-	public String upload(@RequestParam("command") String command, Model model) {
-		String error = null;
-		String output = "";
-	    
+	@PostMapping(value = "/execute", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> execute(@RequestParam("command") String command) {
 		try {
-	        output = service.callCommand(command);
-
+			String output = service.callCommand(command);
+			return ResponseEntity.ok(output);
 		} catch (Exception ex) {
-			logger.error("group", ex);
-			error = ex.getMessage();
+			logger.error("command execution failed", ex);
+			return ResponseEntity.internalServerError().body(ex.getMessage());
 		}
-
-		model.addAttribute("command", command);
-		model.addAttribute("output", output);
-		model.addAttribute("error", error);
-
-		return "index";
 	}
-
 }
