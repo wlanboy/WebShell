@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web Shell</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="/">Web Shell</a>
+</nav>
+
+<div class="container">
+
+  <div class="section-label">Input</div>
+  <form id="shell-form">
+    <div class="form-group">
+      <label for="command">Command</label>
+      <input type="text" id="command" name="command" value="ls" autocomplete="off" />
+    </div>
+    <input type="submit" value="Run" />
+  </form>
+
+  <div class="section-label">Output</div>
+  <pre id="output"></pre>
+
+  <div id="error-box" class="alert" style="display:none">
+    <strong>Error:</strong> <span id="error-msg"></span>
+  </div>
+
+</div>
+
+<script src="/shell.js"></script>
+
+</body>
+</html>

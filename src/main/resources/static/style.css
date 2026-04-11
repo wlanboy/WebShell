@@ -1,0 +1,110 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0f0f0f;
+  --surface: #1a1a1a;
+  --border:  #2e2e2e;
+  --text:    #d4d4d4;
+  --muted:   #6b6b6b;
+  --accent:  #4a9eff;
+  --danger:  #c0392b;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+nav a.brand {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.container {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--muted);
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.45rem 0.7rem;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: var(--accent);
+}
+
+input[type="submit"] {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.4rem 1.2rem;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.form-group {
+  margin-bottom: 0.8rem;
+}
+
+pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--text);
+  margin-top: 1rem;
+}
+
+.section-label {
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.alert {
+  border-left: 3px solid var(--danger);
+  background: var(--surface);
+  color: var(--danger);
+  padding: 0.6rem 1rem;
+  margin-top: 1rem;
+}

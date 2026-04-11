@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web Shell Login</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="/">Web Shell</a>
+</nav>
+
+<div class="container">
+
+  <div class="section-label">Login</div>
+  <form action="/login" method="post">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" autocomplete="username" />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" />
+    </div>
+    <input type="submit" value="Sign In" />
+  </form>
+
+  <div id="error-box" class="alert" style="display:none">
+    <strong>Error:</strong> Invalid username or password.
+  </div>
+
+</div>
+
+<script src="/login.js"></script>
+
+</body>
+</html>
