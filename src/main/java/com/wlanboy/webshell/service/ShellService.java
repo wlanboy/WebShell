@@ -1,8 +1,10 @@
 package com.wlanboy.webshell.service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -10,10 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShellService {
 
-	public String callCommand(String command) throws IOException, InterruptedException {
+	public record CommandResult(String output, int exitCode) {}
+
+	public CommandResult callCommand(String command) throws IOException, InterruptedException {
 		String[] parts = command.trim().split("\\s+");
 
 		ProcessBuilder pb = new ProcessBuilder(parts);
+		pb.directory(new File("/tmp"));
 		pb.redirectErrorStream(true);
 		Process p = pb.start();
 
@@ -22,7 +27,11 @@ public class ShellService {
 			output = reader.lines().collect(Collectors.joining("\n"));
 		}
 
-		p.waitFor();
-		return output;
+		if (!p.waitFor(30, TimeUnit.SECONDS)) {
+			p.destroyForcibly();
+			return new CommandResult("Timeout: command exceeded 30 seconds", 124);
+		}
+
+		return new CommandResult(output, p.exitValue());
 	}
 }
