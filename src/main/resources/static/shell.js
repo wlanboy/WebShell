@@ -25,6 +25,13 @@ document.getElementById('shell-form').addEventListener('submit', async function 
     }
 
     const text = await resp.text();
+
+    if (!resp.ok) {
+      errorBox.style.display = '';
+      errorMsg.textContent = text;
+      return;
+    }
+
     output.textContent = text;
   } catch (err) {
     errorBox.style.display = '';

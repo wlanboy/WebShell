@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wlanboy.webshell.service.ShellService;
+import com.wlanboy.webshell.service.ShellService.CommandResult;
 
 @Controller
 public class IndexController {
@@ -22,8 +23,11 @@ public class IndexController {
 	@PostMapping(value = "/execute", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> execute(@RequestParam("command") String command) {
 		try {
-			String output = service.callCommand(command);
-			return ResponseEntity.ok(output);
+			CommandResult result = service.callCommand(command);
+			if (result.exitCode() != 0) {
+				return ResponseEntity.status(422).body(result.output());
+			}
+			return ResponseEntity.ok(result.output());
 		} catch (Exception ex) {
 			logger.error("command execution failed", ex);
 			return ResponseEntity.internalServerError().body(ex.getMessage());
