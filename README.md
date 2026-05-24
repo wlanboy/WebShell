@@ -1,29 +1,70 @@
-![Java CI with Maven](https://github.com/wlanboy/WebShell/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
+![Java CI with Maven](https://github.com/wlanboy/WebShell/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
 
 # WebShell
-Spring Boot based webfrontend for local shell access
+Spring Boot based web frontend for local shell access.
 
 ## Dependencies
-At least: Java 25 and Maven 3.9
+- Java 25
+- Maven 3.9
 
-## Change passwords for users "user" and "test"
-- https://github.com/wlanboy/WebShell/blob/main/src/main/resources/application.yml
-- use a BCryptPasswordEncoder to generate your own password hashes
+## Users
+Two users are pre-configured in `application.yml`:
 
-## Build Service Config
-- mvn package -DskipTests=true
+| Username | Role  |
+|----------|-------|
+| `user`   | SHELL |
+| `test`   | SHELL |
+
+Passwords are stored as BCrypt hashes. To set your own passwords:
+1. Generate a hash with `BCryptPasswordEncoder`
+2. Replace the values for `userpassword` and `testpassword` in [application.yml](src/main/resources/application.yml)
+
+## Build
+
+```bash
+mvn package
+```
+
+## Run
 
 ### Windows
-- java -jar target\webshell-0.1.2-SNAPSHOT.jar
+```bat
+java -jar target\webshell-0.1.2-SNAPSHOT.jar
+```
 
-### Linux (service enabled)
-- ./target/webshell-0.1.2-SNAPSHOT.jar start
+### Linux
+```bash
+java -jar target/webshell-0.1.2-SNAPSHOT.jar
+```
+
+### Port
+The default port is `8001`. Override with the `PORT` environment variable:
+
+```bash
+PORT=9000 java -jar target/webshell-0.1.2-SNAPSHOT.jar
+```
 
 ## Docker Hub
 https://hub.docker.com/r/wlanboy/webshell
 
 ## Docker build
-- docker build -t webshell:latest . 
+```bash
+docker build -t webshell:latest .
+```
 
 ## Docker run
-- docker run --name webshell -d -p 8080:8001 -v /tmp:/tmp wlanboy/webshell:latest
+```bash
+docker run --name webshell -d -p 8080:8001 -v /tmp:/tmp wlanboy/webshell:latest
+```
+
+Override port:
+```bash
+docker run --name webshell -d -p 9000:9000 -e PORT=9000 -v /tmp:/tmp wlanboy/webshell:latest
+```
+
+## Behavior
+
+- Commands are executed in `/tmp` as working directory
+- Commands that exceed **30 seconds** are killed and return a timeout message
+- Commands with a non-zero exit code return **HTTP 422** — the output is shown as an error in the UI
+- stderr is merged into stdout
