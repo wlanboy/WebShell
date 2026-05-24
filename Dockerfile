@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25-jre-noble
+FROM eclipse-temurin:25-jre-alpine
 VOLUME /tmp
 COPY target/webshell-*.jar app.jar
 EXPOSE 8001
