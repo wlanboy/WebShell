@@ -27,7 +27,7 @@ public class BasicWebSecurityConfigurerAdapter {
     http
         .csrf(csrf -> csrf.disable())
 .authorizeHttpRequests(requests -> requests
-            .requestMatchers("/login.html", "/style.css", "/login.js").permitAll()
+            .requestMatchers("/login.html", "/style.css", "/login.js", "/shell.js").permitAll()
             .anyRequest().authenticated())
         .formLogin(form -> form
             .loginPage("/login.html")
