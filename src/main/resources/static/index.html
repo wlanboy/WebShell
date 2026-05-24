@@ -2,36 +2,25 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Web Shell</title>
+  <title>WebShell</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-
-<nav>
-  <a class="brand" href="/">Web Shell</a>
-</nav>
-
-<div class="container">
-
-  <div class="section-label">Input</div>
-  <form id="shell-form">
-    <div class="form-group">
-      <label for="command">Command</label>
-      <input type="text" id="command" name="command" value="ls" autocomplete="off" />
+<div id="terminal">
+  <div id="titlebar">
+    <div class="dots">
+      <span class="dot" style="background:#ff5f57"></span>
+      <span class="dot" style="background:#febc2e"></span>
+      <span class="dot" style="background:#28c840"></span>
     </div>
-    <input type="submit" value="Run" />
-  </form>
-
-  <div class="section-label">Output</div>
-  <pre id="output"></pre>
-
-  <div id="error-box" class="alert" style="display:none">
-    <strong>Error:</strong> <span id="error-msg"></span>
+    <span id="title">webshell</span>
   </div>
-
+  <div id="output"></div>
+  <div id="prompt-line">
+    <span class="ps1">user@webshell:~$</span>
+    <input id="cmd-input" type="text" autocomplete="off" spellcheck="false" autofocus />
+  </div>
 </div>
-
 <script src="/shell.js"></script>
-
 </body>
 </html>
