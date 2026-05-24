@@ -1,7 +1,22 @@
 ![Java CI with Maven](https://github.com/wlanboy/WebShell/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
 
 # WebShell
-Spring Boot based web frontend for local shell access.
+
+WebShell is a browser-based terminal frontend for executing shell commands on a remote host.
+It provides a TUI-like interface directly in the browser — no SSH client, no VPN, no additional tooling required.
+Useful for quick access to a containerized environment, a dev machine, or any host that is reachable via HTTP.
+
+**Features**
+- Full-screen terminal UI with macOS-style titlebar
+- Command history navigation via `↑` / `↓` arrow keys
+- Inline output — commands and results appear in sequence, like a real shell session
+- Built-in commands: `clear`, `help`
+- Commands with a non-zero exit code are highlighted as errors
+- 30-second execution timeout with forced process termination
+- Form-based login with BCrypt-hashed passwords (Spring Security)
+- Runs as a single self-contained JAR or Docker container
+
+![WebShell TUI](screenshots/tui.png)
 
 ## Dependencies
 - Java 25
