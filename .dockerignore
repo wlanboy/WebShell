@@ -1,0 +1,4 @@
+# Das Dockerfile kopiert nur das fertige Jar aus target/.
+# Alles andere bleibt aus dem Build-Kontext.
+*
+!target/webshell-*.jar

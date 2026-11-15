@@ -12,3 +12,4 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 .factorypath
 .settings/
+.vscode/settings.json
