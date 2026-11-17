@@ -4,6 +4,19 @@ image:
   pullPolicy: IfNotPresent
 
 replicaCount: 1
+
+# Ersetzt JAVA_TOOL_OPTIONS aus dem Dockerfile komplett: immer den vollständigen Satz setzen,
+# ohne GC- und Header-Flags (die stehen fest im ENTRYPOINT, passend zum AOT-Cache).
+javaOpts: "-Xms64m -Xmx192m -Xss512k -XX:MaxMetaspaceSize=64m -XX:ReservedCodeCacheSize=48m -XX:TieredStopAtLevel=1 -XX:ActiveProcessorCount=2 -XX:+ExitOnOutOfMemoryError -XX:-UsePerfData"
+
+# limits.memory = Xmx 192 + AOT-Cache ~80 + CodeCache 48 + Metaspace 64 + ~20 + Puffer für Kindprozesse
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "2"
+    memory: 512Mi
 deploymentName: webshell
 
 service:

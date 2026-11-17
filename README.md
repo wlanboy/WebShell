@@ -64,7 +64,7 @@ https://hub.docker.com/r/wlanboy/webshell
 
 ## Docker build
 ```bash
-docker build -t webshell:latest .
+docker build -f Dockerfile.25 -t webshell:latest .
 ```
 
 ## Docker run

@@ -3,6 +3,9 @@ spring:
     name: webshell
   main:
     banner-mode: "off"
+  threads:
+    virtual:
+      enabled: true
 server:
   port: ${PORT:8001}
 userpassword: "$2a$10$3/f1mY14mMqF7cGksN2g2uBZX/FbbuLeOSnQ6yUu9/.lLqmUj6B4e"

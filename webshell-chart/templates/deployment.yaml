@@ -13,12 +13,29 @@ spec:
         app: {{ .Values.deploymentName }}
         sidecar.istio.io/inject: "true"
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 185
+        runAsNonRoot: true
+        fsGroup: 185
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: {{ .Values.deploymentName }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: {{ .Values.javaOpts | quote }}
           ports:
             - containerPort: {{ .Values.service.targetPort }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
           volumeMounts:
             - name: tmp-volume
               mountPath: {{ .Values.volume.mountPath }}

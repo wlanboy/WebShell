@@ -1,0 +1,49 @@
+ARG UBI_TAG=latest
+
+FROM registry.access.redhat.com/ubi10/openjdk-25:${UBI_TAG} AS build
+USER root
+RUN mkdir /build /app && chown 185:0 /build /app
+USER 185
+WORKDIR /build
+COPY pom.xml .
+RUN --mount=type=cache,target=/home/default/.m2,uid=185 mvn -q dependency:go-offline
+COPY src/main ./src/main
+RUN --mount=type=cache,target=/home/default/.m2,uid=185 \
+    mvn -q -Dmaven.test.skip=true compile spring-boot:process-aot package
+
+RUN JAR=$(ls target/*.jar | grep -v original) && \
+    java -Djarmode=tools -jar "$JAR" extract --layers --application-filename app.jar --destination extracted
+WORKDIR /app
+RUN for layer in dependencies observability-dependencies spring-boot-loader snapshot-dependencies application-resources application; do \
+      [ -d /build/extracted/$layer ] && cp -a /build/extracted/$layer/. /app/; \
+    done
+RUN java -XX:AOTCacheOutput=/app/app.aot \
+         -XX:+UseSerialGC -XX:+UseCompactObjectHeaders \
+         -Dspring.aot.enabled=true -Dspring.context.exit=onRefresh \
+         -jar /app/app.jar
+
+FROM registry.access.redhat.com/ubi10/openjdk-25-runtime:${UBI_TAG}
+LABEL org.opencontainers.image.title="webshell" \
+      org.opencontainers.image.description="Browser-based terminal frontend for executing shell commands" \
+      org.opencontainers.image.version="0.1.2-SNAPSHOT" \
+      org.opencontainers.image.vendor="wlanboy" \
+      org.opencontainers.image.source="https://github.com/wlanboy/WebShell" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      org.opencontainers.image.base.name="registry.access.redhat.com/ubi10/openjdk-25-runtime"
+USER 185
+WORKDIR /app
+COPY --from=build --chown=185:185 /build/extracted/dependencies/ ./
+COPY --from=build --chown=185:185 /build/extracted/spring-boot-loader/ ./
+COPY --from=build --chown=185:185 /build/extracted/snapshot-dependencies/ ./
+COPY --from=build --chown=185:185 /build/extracted/application/ ./
+COPY --from=build --chown=185:185 /app/app.aot ./app.aot
+EXPOSE 8001
+ENV JAVA_TOOL_OPTIONS="-Xms64m -Xmx192m -Xss512k \
+  -XX:MaxMetaspaceSize=64m -XX:ReservedCodeCacheSize=48m -XX:TieredStopAtLevel=1 \
+  -XX:ActiveProcessorCount=2 -XX:+ExitOnOutOfMemoryError -XX:-UsePerfData"
+ENTRYPOINT ["java", \
+  "-XX:AOTCache=/app/app.aot", \
+  "-Dspring.aot.enabled=true", \
+  "-XX:+UseSerialGC", \
+  "-XX:+UseCompactObjectHeaders", \
+  "-jar", "/app/app.jar"]

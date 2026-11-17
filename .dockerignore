@@ -1,4 +1,5 @@
-# Das Dockerfile kopiert nur das fertige Jar aus target/.
-# Alles andere bleibt aus dem Build-Kontext.
+# Whitelist: Nur pom.xml und die Hauptquellen gehen in den Build-Kontext.
+# target/, .git/, webshell-chart/, IDE-Dateien und Tests bleiben draußen.
 *
-!target/webshell-*.jar
+!pom.xml
+!src/main/
