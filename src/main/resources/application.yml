@@ -8,5 +8,11 @@ spring:
       enabled: true
 server:
   port: ${PORT:8001}
+  jetty:
+    # mit virtuellen Threads begrenzt threads.max die gleichzeitigen Requests
+    threads:
+      max: 50
+    max-connections: 512
+    connection-idle-timeout: 15s
 userpassword: "$2a$10$3/f1mY14mMqF7cGksN2g2uBZX/FbbuLeOSnQ6yUu9/.lLqmUj6B4e"
 testpassword: "$2a$10$7r7G6TDECbA5N.yvChZJeuMhywmDKLfP373LEl6dj.SYCJ/vtAdOu"
