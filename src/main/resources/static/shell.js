@@ -22,12 +22,31 @@ function appendOut(text, isError) {
   output.scrollTop = output.scrollHeight;
 }
 
-const HELP_TEXT = `Built-in commands:
+function csrfToken() {
+  const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : '';
+}
+
+async function helpText() {
+  let settings = 'Settings could not be loaded.';
+  try {
+    const resp = await fetch('/settings');
+    if (resp.ok) {
+      const s = await resp.json();
+      settings = `Working directory: ${s.workdir}  |  Timeout: ${s.timeoutSeconds}s  |  Max output: ${s.maxOutputBytes} bytes`;
+    }
+  } catch (err) {
+    // keep fallback text
+  }
+  return `Built-in commands:
   clear    clear the terminal
   help     show this help
 
-All other commands are executed on the server.
-Working directory: /tmp  |  Timeout: 30s`;
+All other commands are executed on the server, without a shell:
+no pipes, redirects, variables or globs. Quote arguments with
+'single' or "double" quotes, escape single characters with \\.
+${settings}`;
+}
 
 appendOut('WebShell ready. Type \'help\' for built-in commands.\n');
 
@@ -66,7 +85,7 @@ input.addEventListener('keydown', async function (e) {
   }
 
   if (cmd === 'help') {
-    appendOut(HELP_TEXT, false);
+    appendOut(await helpText(), false);
     return;
   }
 
@@ -79,7 +98,10 @@ input.addEventListener('keydown', async function (e) {
   try {
     const resp = await fetch('/execute', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-XSRF-TOKEN': csrfToken()
+      },
       body: params.toString()
     });
 

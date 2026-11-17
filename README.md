@@ -79,7 +79,20 @@ docker run --name webshell -d -p 9000:9000 -e PORT=9000 -v /tmp:/tmp wlanboy/web
 
 ## Behavior
 
-- Commands are executed in `/tmp` as working directory
-- Commands that exceed **30 seconds** are killed and return a timeout message
-- Commands with a non-zero exit code return **HTTP 422** — the output is shown as an error in the UI
-- stderr is merged into stdout
+- Commands run without a shell: no pipes, redirects, variables or globs.
+  Arguments can be quoted with `'single'` or `"double"` quotes, and `\` escapes a single character.
+- Commands run in `/tmp` as working directory.
+- Commands that run longer than **30 seconds** are killed together with their child processes.
+- Output is limited to **1 MB**. A command that writes more gets killed.
+- A non-zero exit code, a timeout or a killed command returns **HTTP 422**, and the UI shows the output as an error.
+- Empty or unparsable command lines return **HTTP 400**.
+- stderr is merged into stdout.
+- `/execute` requires a CSRF token. The server sets it as `XSRF-TOKEN` cookie, and the UI sends it back as `X-XSRF-TOKEN` header.
+
+Working directory, timeout and output limit are set in `application.yml` and can be overridden with environment variables:
+
+| Property              | Environment variable   | Default |
+|-----------------------|------------------------|---------|
+| `webshell.workdir`    | `WEBSHELL_WORKDIR`     | `/tmp`  |
+| `webshell.timeout`    | `WEBSHELL_TIMEOUT`     | `30s`   |
+| `webshell.max-output` | `WEBSHELL_MAX_OUTPUT`  | `1MB`   |

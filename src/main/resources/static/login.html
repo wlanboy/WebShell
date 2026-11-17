@@ -14,7 +14,8 @@
 <div class="container">
 
   <div class="section-label">Login</div>
-  <form action="/login" method="post">
+  <form id="login-form" action="/login" method="post">
+    <input type="hidden" id="csrf" name="_csrf" />
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" autocomplete="username" />
